@@ -9,6 +9,7 @@ app.use(express.json());
 
 // Importing Routes
 const authRoutes = require("./routes/authRoutes");
+const categoryRoutes= require("./routes/categoryRoutes");
 
 
 // Testing imports -- will be deleted later in final version
@@ -23,6 +24,9 @@ app.get("/", (req, res) => {
 
 //  Handling signup/sign authentication
 app.use("/api/auth/", authRoutes);
+
+// Course categories
+app.use("/api/categories", categoryRoutes);
 
 // Testing role based access route -- will be deleted later in final version
 // app.get(
