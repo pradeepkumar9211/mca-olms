@@ -23,7 +23,7 @@ const createStudent = async (
 const findStudentByEmail = async (email) => {
   const sql = `SELECT * FROM student WHERE email = ?`;
   const [rows] = await db.execute(sql, [email]);
-  console.log(rows[0]["password"]);
+  // console.log(rows[0]["password"]);
   return rows[0];
 };
 

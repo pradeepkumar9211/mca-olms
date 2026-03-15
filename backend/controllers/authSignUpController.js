@@ -113,7 +113,7 @@ async function studentSignup(res, id, name, email, hashedPassword, avatar) {
       avatar,
     );
 
-    return sendResponse(res, 201, "User signed up successfully", result);
+    return sendResponse(res, 201, "User signed up successfully");
   } catch (err) {
     console.error("Student signup error:", err);
     return sendResponse(res, 500, "Internal server error");
@@ -150,7 +150,7 @@ async function instructorSignup(
       false,
     );
 
-    return sendResponse(res, 201, "User signed up successfully", result);
+    return sendResponse(res, 201, "User signed up successfully");
   } catch (err) {
     console.error("Instructor signup error:", err);
     return sendResponse(res, 500, "Internal server error");

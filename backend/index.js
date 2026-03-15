@@ -9,8 +9,8 @@ app.use(express.json());
 
 // Importing Routes
 const authRoutes = require("./routes/authRoutes");
-const categoryRoutes= require("./routes/categoryRoutes");
-
+const categoryRoutes = require("./routes/categoryRoutes");
+const courseRoutes = require("./routes/courseRoutes");
 
 // Testing imports -- will be deleted later in final version
 const userAuth = require("./middleware/authMiddleware");
@@ -27,6 +27,9 @@ app.use("/api/auth/", authRoutes);
 
 // Course categories
 app.use("/api/categories", categoryRoutes);
+
+// Courses Routes
+app.use("/api/courses", courseRoutes);
 
 // Testing role based access route -- will be deleted later in final version
 // app.get(

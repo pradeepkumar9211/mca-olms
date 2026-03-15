@@ -36,7 +36,7 @@ async function signIn(req, res) {
   if (role === "student") {
     return studentSignIn(res, email, password, role);
   } else {
-    instructorSign(res, email, password, role);
+    return instructorSign(res, email, password, role);
   }
 }
 
@@ -44,7 +44,7 @@ async function signIn(req, res) {
 async function studentSignIn(res, email, password, role) {
   try {
     const student = await findStudentByEmail(email);
-    if (!student.length === 1) {
+    if (!student || student.length === 0) {
       return sendResponse(res, 401, "Invalid email or password");
     }
     const validPassword = await bcrypt.compare(password, student["password"]);
@@ -62,7 +62,7 @@ async function studentSignIn(res, email, password, role) {
 async function instructorSign(res, email, password, role) {
   try {
     const instructor = await findInstructorByEmail(email);
-    if (!instructor.length === 1) {
+    if (!instructor || instructor.length === 0) {
       return sendResponse(res, 401, "Invalid email or password");
     }
     const validPassword = await bcrypt.compare(
