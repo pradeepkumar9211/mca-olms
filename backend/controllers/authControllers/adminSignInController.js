@@ -21,16 +21,16 @@ async function adminSignIn(req, res) {
     const { email, password } = validation.data;
 
     const admin = await findAdminByEmail(email);
-    if (!admin || admin.length === 0) {
+    if (!admin) {
       return sendResponse(res, 401, "Invalid email or password");
     }
 
-    const isMatch = await bcrypt.compare(password, admin[0].password);
+    const isMatch = await bcrypt.compare(password, admin["password"]);
     if (!isMatch) {
       return sendResponse(res, 401, "Invalid email or password");
     }
 
-    const token = generateToken(admin[0].admin_id, "admin");
+    const token = generateToken(admin["admin_id"], "admin");
     return sendResponse(res, 200, "Sign in successful", { token });
 
   } catch (err) {
