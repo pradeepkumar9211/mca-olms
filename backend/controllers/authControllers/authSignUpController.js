@@ -16,9 +16,9 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto"); // For generating unique IDs
 
 // Import student and instructor models
-const student = require("../models/studentModel");
-const instructor = require("../models/instructorModel");
-const sendResponse = require("../utils/sendResponse");
+const student = require("../../models/studentModel");
+const instructor = require("../../models/instructorModel");
+const sendResponse = require("../../utils/sendResponse");
 
 // -------------------------
 // Helper function: Send consistent API responses

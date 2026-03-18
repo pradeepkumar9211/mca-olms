@@ -1,10 +1,10 @@
 const z = require("zod");
 const bcrypt = require("bcrypt");
 
-const { findStudentByEmail } = require("../models/studentModel");
-const { findInstructorByEmail } = require("../models/instructorModel");
-const sendResponse = require("../utils/sendResponse");
-const generateToken = require("../utils/generateToken");
+const { findStudentByEmail } = require("../../models/studentModel");
+const { findInstructorByEmail } = require("../../models/instructorModel");
+const sendResponse = require("../../utils/sendResponse");
+const generateToken = require("../../utils/generateToken");
 
 // SigIn Handler
 async function signIn(req, res) {

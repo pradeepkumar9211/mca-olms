@@ -29,9 +29,19 @@ const findStudentByEmail = async (email) => {
 
 // get student details by id
 const findStudentById = async (id) => {
-  const sql = `SELECT id, name, email FROM student WHERE id = ?`;
+  const sql = `SELECT student_id, name, email, password FROM student WHERE student_id = ?`;
   const [rows] = await db.execute(sql, [id]);
   return rows[0];
 };
+const changeStudentPassword = async (id, newPassword) => {
+  const sql = `UPDATE student SET password = ? WHERE student_id = ?`;
+  const [rows] = await db.execute(sql, [newPassword, id]);
+  return rows;
+};
 
-module.exports = { createStudent, findStudentByEmail, findStudentById };
+module.exports = {
+  createStudent,
+  findStudentByEmail,
+  findStudentById,
+  changeStudentPassword,
+};

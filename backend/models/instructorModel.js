@@ -32,13 +32,20 @@ const findInstructorByEmail = async (email) => {
 
 // get instructor details by id
 const findInstructorById = async (id) => {
-  const sql = `SELECT instructor_id, name, email FROM instructor WHERE instructor_id = ?`;
+  const sql = `SELECT instructor_id, name, email, password FROM instructor WHERE instructor_id = ?`;
   const [rows] = await db.execute(sql, [id]);
   return rows[0];
+};
+
+const changeInstructorPassword = async (id, newPassword) => {
+  const sql = `UPDATE instructor SET password = ? WHERE instructor_id = ?`;
+  const [rows] = await db.execute(sql, [newPassword, id]);
+  return rows;
 };
 
 module.exports = {
   createInstructor,
   findInstructorByEmail,
   findInstructorById,
+  changeInstructorPassword,
 };
