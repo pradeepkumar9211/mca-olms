@@ -2,38 +2,66 @@ const { Router } = require("express");
 const userAuth = require("../middleware/authMiddleware");
 const roleMiddleware = require("../middleware/roleMidlleware");
 const {
-  getAllCourses,
-  getCourseById,
-  createCourse,
-  updateCourse,
-  deleteCourse,
+  getAllCoursesHandler,
+  getCourseByIdHandler,
+  getCoursesByCategoryHandler,
+  getInstructorCoursesHandler,
+  createCourseHandler,
+  updateCourseHandler,
+  togglePublishCourseHandler,
+  deleteCourseHandler,
 } = require("../controllers/courseController");
 
 const CourseRouter = Router();
 
-// Getting all the courses  -- not fully working as of now as join queries will be used after creating required tables
-CourseRouter.get("/", getAllCourses);
+// Public routes
+// ✅✅✅✅✅ - get all published courses
+CourseRouter.get("/", getAllCoursesHandler);
+// ✅✅✅✅✅ - get all published courses by category id
+CourseRouter.get("/category/:id", getCoursesByCategoryHandler);
 
-// Getting  course info by Id   -- not fully working as of now as join queries will be used after creating required tables
-CourseRouter.get("/:id", getCourseById);
+// ✅✅✅✅✅ - get course by id
+CourseRouter.get("/:id", getCourseByIdHandler);
 
-// Creating a course - by Instructor only
-CourseRouter.post("/", userAuth, roleMiddleware("instructor"), createCourse);
+// Instructor only
+// ✅✅✅✅✅ - instructor specific courses
+CourseRouter.get(
+  "/instructor/my-courses",
+  userAuth,
+  roleMiddleware("instructor"),
+  getInstructorCoursesHandler,
+);
 
-// Updating a course - by Instructor (owner) only Optional - Admin
+// ✅✅✅✅✅ - create course
+CourseRouter.post(
+  "/",
+  userAuth,
+  roleMiddleware("instructor"),
+  createCourseHandler,
+);
+
+// ✅✅✅✅✅ - update course
 CourseRouter.put(
   "/:id",
   userAuth,
-  roleMiddleware("instructor", "admin"),
-  updateCourse,
+  roleMiddleware("instructor"),
+  updateCourseHandler,
+);
+// ✅✅✅✅✅ - toggle publish and unpublish
+CourseRouter.patch(
+  "/:id/publish",
+  userAuth,
+  roleMiddleware("instructor"),
+  togglePublishCourseHandler,
 );
 
-// Deleting a course - by Instructor (owner) and admin
+// Instructor or admin
+// ✅✅✅✅✅ - delete courses
 CourseRouter.delete(
   "/:id",
   userAuth,
   roleMiddleware("instructor", "admin"),
-  deleteCourse,
+  deleteCourseHandler,
 );
 
 module.exports = CourseRouter;
