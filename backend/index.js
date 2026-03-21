@@ -12,6 +12,7 @@ const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const enrollmentRoutes = require("./routes/enrollmentRoutes");
 
 // Testing imports -- will be deleted later in final version
 const userAuth = require("./middleware/authMiddleware");
@@ -34,6 +35,9 @@ app.use("/api/courses", courseRoutes);
 
 // Payment Routes
 app.use("/api/payments", paymentRoutes);
+
+// Enrollment Routes
+app.use("/api/student", enrollmentRoutes);
 // Testing role based access route -- will be deleted later in final version
 // app.get(
 //   "/api/test/protected",

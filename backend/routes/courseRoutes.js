@@ -12,13 +12,14 @@ const {
   deleteCourseHandler,
 } = require("../controllers/courseController");
 
-
 const {
   getModulesHandler,
   createModuleHandler,
   updateModuleHandler,
   deleteModuleHandler,
 } = require("../controllers/courseModuleController");
+
+const { getCourseEnrollments } = require("../controllers/enrollmentController");
 
 const CourseRouter = Router();
 
@@ -40,6 +41,15 @@ CourseRouter.get(
   userAuth,
   roleMiddleware("instructor"),
   getInstructorCoursesHandler,
+);
+
+// get all students enrolled in instructor's course -- instructor only
+// add this after existing course routes
+CourseRouter.get(
+  "/:id/enrollments",
+  userAuth,
+  roleMiddleware("instructor"),
+  getCourseEnrollments,
 );
 
 // create a new course -- only instructors can do this
