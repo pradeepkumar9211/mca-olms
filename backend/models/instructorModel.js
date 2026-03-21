@@ -43,9 +43,53 @@ const changeInstructorPassword = async (id, newPassword) => {
   return rows;
 };
 
+// get instructor dashboard stats
+const getInstructorDashboardStats = async (instructor_id) => {
+ // total courses created by instructor
+  const [courses] = await db.execute(
+    `SELECT COUNT(*) AS total FROM course WHERE instructor_id = ?`,
+    [instructor_id]
+  );
+
+  // total enrollments across all instructor's courses
+  const [enrollments] = await db.execute(
+    `SELECT COUNT(e.enrollment_id) AS total
+     FROM nrollments e
+     JOIN course c ON e.course_id = c.course_id
+     WHERE c.instructor_id = ?`,
+    [instructor_id]
+  );
+
+  // avg rating across all instructor's courses
+  const [rating] = await db.execute(
+    `SELECT ROUND(AVG(r.rating), 1) AS avg_rating
+     FROM review r
+     JOIN course c ON r.course_id = c.course_id
+     WHERE c.instructor_id = ?`,
+    [instructor_id]
+  );
+
+  return {
+    total_courses:     courses[0].total,
+    total_enrollments: enrollments[0].total,
+    avg_rating:        rating[0].avg_rating || 0,
+  };
+};
+
+// update instructor profile
+const updateInstructor = async (instructor_id, bio, skills) => {
+  const [result] = await db.execute(
+    `UPDATE instructor SET bio = ?, skills = ? WHERE instructor_id = ?`,
+    [bio, skills, instructor_id],
+  );
+  return result.affectedRows;
+};
+
 module.exports = {
   createInstructor,
   findInstructorByEmail,
   findInstructorById,
   changeInstructorPassword,
+  getInstructorDashboardStats,
+  updateInstructor,
 };

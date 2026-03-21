@@ -2,66 +2,59 @@ require("dotenv").config();
 const express = require("express");
 
 const app = express();
-
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Importing Routes
-const authRoutes = require("./routes/authRoutes");
-const categoryRoutes = require("./routes/categoryRoutes");
-const courseRoutes = require("./routes/courseRoutes");
-const paymentRoutes = require("./routes/paymentRoutes");
+// importing all routes
+const authRoutes       = require("./routes/authRoutes");
+const categoryRoutes   = require("./routes/categoryRoutes");
+const courseRoutes     = require("./routes/courseRoutes");
+const paymentRoutes    = require("./routes/paymentRoutes");
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
-const progressRoutes = require("./routes/progressRoutes");
-const wishlistRoutes = require("./routes/wishlistRoutes");
+const progressRoutes   = require("./routes/progressRoutes");
+const wishlistRoutes   = require("./routes/wishlistRoutes");
+const reviewRoutes     = require("./routes/reviewRoutes");
+const dashboardRoutes  = require("./routes/dashboardRoutes");
 
-// Testing imports -- will be deleted later in final version
-const userAuth = require("./middleware/authMiddleware");
-const roleMiddleware = require("./middleware/roleMidlleware");
-const reviewRoutes = require("./routes/reviewRoutes");
-
-// Handling All Routes
-
+// home route
 app.get("/", (req, res) => {
   res.send("Home Route");
 });
 
-//  Handling signup/sign authentication
-app.use("/api/auth/", authRoutes);
+// auth -- signup, signin, me, change password
+app.use("/api/auth", authRoutes);
 
-// Course categories
+// course categories
 app.use("/api/categories", categoryRoutes);
 
-// Courses Routes
+// courses + course modules
 app.use("/api/courses", courseRoutes);
 
-// Payment Routes
+// payments
 app.use("/api/payments", paymentRoutes);
 
-// Enrollment Routes
+// student -- enrollment, progress, wishlist
 app.use("/api/student", enrollmentRoutes);
-
-// Progress Routes 
 app.use("/api/student", progressRoutes);
-
-// Wishlist Routes
 app.use("/api/student", wishlistRoutes);
 
-// Review Routes
+// reviews
 app.use("/api/reviews", reviewRoutes);
-// Testing role based access route -- will be deleted later in final version
-// app.get(
-//   "/api/test/protected",
-//   userAuth,
-//   roleMiddleware("student"),
-//   (req, res) => {
-//     console.log(req.user);
-//     res.send(
-//       `Hello I am ${req.user["role"] === "student" ? "a" : "an"} ${req.user["role"]}`,
-//     );
-//   },
-// );
+
+// dashboards + profiles
+app.use("/api", dashboardRoutes);
+
+// 404 handler -- catches any unknown routes
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Route not found" });
+});
+
+// global error handler -- catches any unhandled errors
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err);
+  res.status(500).json({ success: false, message: "Internal Server Error" });
+});
 
 async function main() {
   try {
