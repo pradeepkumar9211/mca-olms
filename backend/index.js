@@ -13,10 +13,13 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const enrollmentRoutes = require("./routes/enrollmentRoutes");
+const progressRoutes = require("./routes/progressRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
 
 // Testing imports -- will be deleted later in final version
 const userAuth = require("./middleware/authMiddleware");
 const roleMiddleware = require("./middleware/roleMidlleware");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 // Handling All Routes
 
@@ -38,6 +41,15 @@ app.use("/api/payments", paymentRoutes);
 
 // Enrollment Routes
 app.use("/api/student", enrollmentRoutes);
+
+// Progress Routes 
+app.use("/api/student", progressRoutes);
+
+// Wishlist Routes
+app.use("/api/student", wishlistRoutes);
+
+// Review Routes
+app.use("/api/reviews", reviewRoutes);
 // Testing role based access route -- will be deleted later in final version
 // app.get(
 //   "/api/test/protected",
