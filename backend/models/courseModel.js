@@ -206,6 +206,33 @@ const getCourseOwner = async (course_id) => {
   return rows[0];
 };
 
+// admin version -- returns ALL courses including unpublished
+const getAllCoursesAdmin = async () => {
+  const [rows] = await db.execute(
+    `SELECT
+      c.course_id, c.title, c.price, c.thumbnail,
+      c.is_published, c.created_at,
+      i.name   AS instructor_name,
+      cat.name AS category_name,
+      COUNT(DISTINCT e.enrollment_id) AS total_enrollments
+     FROM course c
+     JOIN instructor i        ON c.instructor_id = i.instructor_id
+     JOIN course_category cat ON c.category_id   = cat.category_id
+     LEFT JOIN enrollments e  ON c.course_id     = e.course_id
+     GROUP BY c.course_id
+     ORDER BY c.created_at DESC`
+  );
+  return rows;
+};
+
+const toggleCourseApproval = async (course_id, status) => {
+  const [result] = await db.execute(
+    `UPDATE course SET is_published = ? WHERE course_id = ?`,
+    [status, course_id]
+  );
+  return result.affectedRows;
+};
+
 module.exports = {
   createCourse,
   getAllCourses,
@@ -216,4 +243,6 @@ module.exports = {
   togglePublishCourse,
   deleteCourse,
   getCourseOwner,
+  getAllCoursesAdmin,
+  toggleCourseApproval
 };

@@ -84,6 +84,21 @@ const updateStudent = async (student_id, name, avatar) => {
   return result.affectedRows;
 };
 
+const getAllStudents = async () => {
+  const [rows] = await db.execute(
+    `SELECT student_id, name, email, avatar, created_at FROM student ORDER BY created_at DESC`
+  );
+  return rows;
+};
+
+const deleteStudentById = async (student_id) => {
+  const [result] = await db.execute(
+    `DELETE FROM student WHERE student_id = ?`,
+    [student_id]
+  );
+  return result.affectedRows;
+};
+
 module.exports = {
   createStudent,
   findStudentByEmail,
@@ -91,4 +106,6 @@ module.exports = {
   changeStudentPassword,
   getStudentDashboardStats,
   updateStudent,
+  getAllStudents,
+  deleteStudentById
 };

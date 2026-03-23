@@ -5,6 +5,15 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+const cors    = require("cors");
+
+
+// cors -- allow requests from frontend
+// update origin to your React app URL when deploying
+app.use(cors({
+  origin:      "http://localhost:5173", // vite default port
+  credentials: true,                    // needed for sending JWT in headers
+}));
 
 // importing all routes
 const authRoutes       = require("./routes/authRoutes");
@@ -16,6 +25,7 @@ const progressRoutes   = require("./routes/progressRoutes");
 const wishlistRoutes   = require("./routes/wishlistRoutes");
 const reviewRoutes     = require("./routes/reviewRoutes");
 const dashboardRoutes  = require("./routes/dashboardRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 // home route
 app.get("/", (req, res) => {
@@ -44,6 +54,9 @@ app.use("/api/reviews", reviewRoutes);
 
 // dashboards + profiles
 app.use("/api", dashboardRoutes);
+
+// Admin Routes
+app.use("/api/admin", adminRoutes);
 
 // 404 handler -- catches any unknown routes
 app.use((req, res) => {

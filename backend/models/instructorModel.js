@@ -32,7 +32,7 @@ const findInstructorByEmail = async (email) => {
 
 // get instructor details by id
 const findInstructorById = async (id) => {
-  const sql = `SELECT instructor_id, name, email, password FROM instructor WHERE instructor_id = ?`;
+  const sql = `SELECT * FROM instructor WHERE instructor_id = ?`;
   const [rows] = await db.execute(sql, [id]);
   return rows[0];
 };
@@ -85,6 +85,30 @@ const updateInstructor = async (instructor_id, bio, skills) => {
   return result.affectedRows;
 };
 
+const getAllInstructors = async () => {
+  const [rows] = await db.execute(
+    `SELECT instructor_id, name, email, bio, skills, is_verified, created_at 
+     FROM instructor ORDER BY created_at DESC`
+  );
+  return rows;
+};
+
+const deleteInstructorById = async (instructor_id) => {
+  const [result] = await db.execute(
+    `DELETE FROM instructor WHERE instructor_id = ?`,
+    [instructor_id]
+  );
+  return result.affectedRows;
+};
+
+const toggleInstructorVerification = async (instructor_id, status) => {
+  const [result] = await db.execute(
+    `UPDATE instructor SET is_verified = ? WHERE instructor_id = ?`,
+    [status, instructor_id]
+  );
+  return result.affectedRows;
+};
+
 module.exports = {
   createInstructor,
   findInstructorByEmail,
@@ -92,4 +116,7 @@ module.exports = {
   changeInstructorPassword,
   getInstructorDashboardStats,
   updateInstructor,
+  getAllInstructors,
+  deleteInstructorById,
+  toggleInstructorVerification
 };

@@ -22,7 +22,7 @@ CategoryRouter.get("/:id", getCategoryById);
 CategoryRouter.post(
   "/",
   authMiddleware,
-  roleMiddleware("admin", "instructor"),
+  roleMiddleware("admin"),
   createCategory,
 );
 
@@ -30,14 +30,14 @@ CategoryRouter.post(
 CategoryRouter.put(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin", "instructor"),
+  roleMiddleware("admin"),
   updateCategoryById,
 );
 // delete a category by admin -- remove instructor when admin is added
 CategoryRouter.delete(
   "/:id",
   authMiddleware,
-  roleMiddleware("admin", "instructor"),
+  roleMiddleware("admin"),
   deleteCategoryById,
 );
 
