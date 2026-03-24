@@ -64,7 +64,7 @@ function AdminDashboard() {
         {/* quick links */}
         <div className="bg-white rounded-xl border border-gray-200 p-6">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Quick actions</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
               { label: "Manage students", to: "/admin/students", icon: "🎓" },
               { label: "Manage instructors", to: "/admin/instructors", icon: "👨‍🏫" },
