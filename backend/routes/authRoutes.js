@@ -15,7 +15,7 @@ AuthRouter.post("/signup", signUp);
 AuthRouter.post("/signin", signIn);
 
 // Admin sign in route
-AuthRouter.post('/admin',adminSignIn);
+AuthRouter.post('/admin/login',adminSignIn);
 
 // get logged in user details
 AuthRouter.get('/me', userAuth,getMe);

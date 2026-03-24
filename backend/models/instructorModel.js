@@ -54,7 +54,7 @@ const getInstructorDashboardStats = async (instructor_id) => {
   // total enrollments across all instructor's courses
   const [enrollments] = await db.execute(
     `SELECT COUNT(e.enrollment_id) AS total
-     FROM nrollments e
+     FROM enrollments e
      JOIN course c ON e.course_id = c.course_id
      WHERE c.instructor_id = ?`,
     [instructor_id]
