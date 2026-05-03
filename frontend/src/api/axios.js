@@ -25,12 +25,16 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      window.location.href = "/login";
+      const token = localStorage.getItem("token");
+      // only redirect if token exists -- means session expired
+      // if no token, user is just trying to login with wrong credentials
+      if (token) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
-  },
+  }
 );
-
 export default api;

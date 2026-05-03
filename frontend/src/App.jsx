@@ -32,6 +32,7 @@ import ManageInstructors from "./pages/admin/ManageInstructors";
 import ManageCourses from "./pages/admin/ManageCourses";
 import ManagePayments from "./pages/admin/ManagePayments";
 import ManageReviews from "./pages/admin/ManageReviews";
+import ManageCategories from "./pages/admin/ManageCategories";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
       <Route path="/admin/courses" element={<ProtectedRoute role="admin"><ManageCourses /></ProtectedRoute>} />
       <Route path="/admin/payments" element={<ProtectedRoute role="admin"><ManagePayments /></ProtectedRoute>} />
       <Route path="/admin/reviews" element={<ProtectedRoute role="admin"><ManageReviews /></ProtectedRoute>} />
+      <Route path="/admin/categories" element={<ProtectedRoute role="admin"><ManageCategories /></ProtectedRoute>} />
 
       {/* fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

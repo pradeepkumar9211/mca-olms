@@ -5,9 +5,9 @@ const db = require("../config/db");
 
 async function seedAdmin() {
   try {
-    const name     = "Admin";
-    const email    = "admin@olms.com";
-    const password = "admin@123";
+    const name     = "Pradeep";
+    const email    = "pradeep@olms.com";
+    const password = "Pradeep@123";
 
     // check if admin already exists
     const [existing] = await db.execute(

@@ -71,6 +71,7 @@ function AdminDashboard() {
               { label: "Manage courses", to: "/admin/courses", icon: "📚" },
               { label: "View payments", to: "/admin/payments", icon: "💳" },
               { label: "Manage reviews", to: "/admin/reviews", icon: "⭐" },
+              { label: "Manage categories", to: "/admin/categories", icon: "🏷️" },
             ].map((item) => (
               <Link
                 key={item.to}

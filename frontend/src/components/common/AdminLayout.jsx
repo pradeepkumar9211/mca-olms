@@ -7,6 +7,7 @@ const navLinks = [
     { to: "/admin/students", label: "Students", icon: "🎓" },
     { to: "/admin/instructors", label: "Instructors", icon: "👨‍🏫" },
     { to: "/admin/courses", label: "Courses", icon: "📚" },
+     { to: "/admin/categories",   label: "Categories",   icon: "🏷️" },
     { to: "/admin/payments", label: "Payments", icon: "💳" },
     { to: "/admin/reviews", label: "Reviews", icon: "⭐" }
 ];

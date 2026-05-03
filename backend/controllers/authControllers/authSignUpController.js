@@ -36,7 +36,7 @@ const baseUserSchema = z.object({
 
 // Student-specific schema
 const studentSchema = baseUserSchema.extend({
-  avatar: z.string().min(3, "Avatar must be at least 3 characters").max(30),
+  avatar: z.string().min(3, "Avatar must be at least 3 characters").max(100),
 });
 
 // Instructor-specific schema
